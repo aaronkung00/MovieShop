@@ -10,9 +10,10 @@ namespace MovieShop.Infrastructure.Repositories
 {
     public class UserRepository : EfRepository<User> , IUserRepository
     {
+        protected readonly MovieShopDbContext _dbContext;
         public UserRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
-
+            _dbContext = dbContext;
         }
 
         public Task<User> GetUserByEmail(string email)

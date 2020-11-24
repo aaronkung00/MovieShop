@@ -12,23 +12,23 @@ namespace MovieShop.Infrastructure.Repositories
 {
     public class EfRepository<T> : IAsyncRepository<T> where T : class
     {
-        protected readonly MovieShopDbContext _deContext;
-        public EfRepository(MovieShopDbContext deContext) 
+        protected readonly MovieShopDbContext _dbContext;
+        public EfRepository(MovieShopDbContext dbContext) 
         {
-            _deContext = deContext;
+            _dbContext = dbContext;
         }
 
         public virtual async Task<T> GetByIdAsync(int id)
         {
-            var entity = await _deContext.Set<T>().FindAsync(id);
+            var entity = await _dbContext.Set<T>().FindAsync(id);
             return entity;
         }
 
 
         public async Task<T> AddAsync(T entity)
         {
-            await _deContext.Set<T>().AddAsync(entity);
-            await _deContext.SaveChangesAsync();
+            await _dbContext.Set<T>().AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
 
@@ -45,15 +45,15 @@ namespace MovieShop.Infrastructure.Repositories
             // dbContext.Update();
             // _dbContext.SaveChange();
 
-            _deContext.Entry(entity).State = EntityState.Modified;
-            await _deContext.SaveChangesAsync();
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
 
         public async Task DeleteAsync(T entity)
         {
-            _deContext.Set<T>().Remove(entity);
-            await _deContext.SaveChangesAsync();
+            _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
 
@@ -61,27 +61,27 @@ namespace MovieShop.Infrastructure.Repositories
         {
            if(filter != null)
             {
-                return await _deContext.Set<T>().Where(filter).CountAsync();
+                return await _dbContext.Set<T>().Where(filter).CountAsync();
             }
 
-            return await _deContext.Set<T>().CountAsync();
+            return await _dbContext.Set<T>().CountAsync();
         }
 
         public async Task<bool> GetExistsAsync(Expression<Func<T, bool>> filter)
         {
-            if (filter != null && await _deContext.Set<T>().Where(filter).AnyAsync())
+            if (filter != null && await _dbContext.Set<T>().Where(filter).AnyAsync())
                 return true;
             return false;
         }
 
         public async Task<IEnumerable<T>> ListAllAsync()
         {
-            return await _deContext.Set<T>().ToListAsync();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter)
         {
-            return await _deContext.Set<T>().Where(filter).ToListAsync();
+            return await _dbContext.Set<T>().Where(filter).ToListAsync();
         }
 
  
