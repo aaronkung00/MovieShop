@@ -19,7 +19,7 @@ namespace MovieShop.Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetHighestRevenueMovies()
         {
-            var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(50).ToListAsync();
+            var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(15).ToListAsync();
             // skip and take
             // offset 10 and fetch 50 rows
             return movies;

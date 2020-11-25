@@ -22,9 +22,21 @@ namespace MovieShop.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-          //  var movies = await _movieService.GetHighestRevenueMovies();
-            var movies = await _movieService.GetMovieAsync(1);
-            return View(movies);
+            //   var movies = await _movieService.GetHighestRevenueMovies();
+            //  var movies = await _movieService.GetMovieAsync(1);
+            //  return View(movies);
+
+            // Pass data from controller to view
+            // ViewBag, ViewData, (if you wanna send some extra info along with )
+            // Strongly Typed model
+
+            //    var testdata = movies;
+            //    ViewBag.myproperty = testdata;
+            //    return View();
+
+            _logger.LogInformation("Index method called");
+            var topGrossingMovies = await _movieService.GetHighestRevenueMovies();
+            return View(topGrossingMovies);
 
             // By default when you do return View its gonna
             // return View with same name as action method
