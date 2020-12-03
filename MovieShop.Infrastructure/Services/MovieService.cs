@@ -39,7 +39,7 @@ namespace MovieShop.Infrastructure.Services
                 {
                     Id = movie.Id,
                     PosterUrl = movie.PosterUrl,
-                    ReleaseDate = movie.ReleaseDate.Value,
+                   // ReleaseDate = movie.ReleaseDate.Value,
                     Title = movie.Title
                 });
             }
