@@ -21,5 +21,8 @@ namespace MovieShop.Infrastructure.Repositories
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+      
+
     }
 }

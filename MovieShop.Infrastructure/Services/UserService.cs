@@ -30,6 +30,7 @@ namespace MovieShop.Infrastructure.Services
         }
 
 
+
         public async Task<UserLoginResponseModel> ValidateUser(string email, string password)
         {
             // we are gonna check if the email exists in the database
@@ -91,6 +92,18 @@ namespace MovieShop.Infrastructure.Services
             return response;
         }
 
- 
+        public async Task<UserRegisterResponseModel> GetUserDetails(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+           
+            var response = new UserRegisterResponseModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+            return response;
+        }
     }
 }

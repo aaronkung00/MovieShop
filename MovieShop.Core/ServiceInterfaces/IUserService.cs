@@ -1,4 +1,5 @@
-﻿using MovieShop.Core.Models.Request_Model;
+﻿using MovieShop.Core.Entities;
+using MovieShop.Core.Models.Request_Model;
 using MovieShop.Core.Models.Response_Model;
 using System;
 using System.Collections.Generic;
@@ -34,5 +35,6 @@ namespace MovieShop.Core.ServiceInterfaces
 
         Task<UserRegisterResponseModel> CreateUser(UserRegisterRequestModel requestModel);
         Task<UserLoginResponseModel> ValidateUser(string email, string password);
+        Task<UserRegisterResponseModel> GetUserDetails(int id);
     }
 }
