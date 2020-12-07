@@ -13,6 +13,7 @@ namespace MovieShop.Core.Entities
 
         // Navigator
         public User User{ get; set; }
+
         public Movie Movie { get; set; }
     }
 }

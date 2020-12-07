@@ -25,7 +25,7 @@ namespace MovieShop.Core.Models
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
 
-   //     public int FavoritesCount { get; set; }
+        //     public int FavoritesCount { get; set; }
         public List<CastResponseModel> Casts { get; set; }
         public List<Genre> Genres { get; set; }
         public class CastResponseModel

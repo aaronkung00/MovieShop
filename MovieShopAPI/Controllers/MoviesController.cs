@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+
 
 namespace MovieShopAPI.Controllers
 {
@@ -37,5 +39,39 @@ namespace MovieShopAPI.Controllers
             }
             return Ok(movies);
         }
+
+
+        [HttpGet]
+        [Route("{id:int}", Name = "GetMoviebyID")]
+        public async Task<IActionResult> GetMovieByID(int id)
+        {
+            var movie = await _movieService.GetMovieAsync(id);
+            return Ok(movie);
+        }
+
+        [HttpGet]
+        [Route("GetTopRated")]
+        public async Task<IActionResult> GetTopRated()
+        {
+            var movie = await _movieService.GetTopRatedMovies();
+            return Ok(movie);
+        }
+
+        [HttpGet]
+        [Route("genre/{genreId:int}")]
+        public async Task<IActionResult> GetMoviesByGenre(int genreId)
+        {
+            var movie = await _movieService.GetMoviesByGenre(genreId);
+            return Ok(movie);
+        }
+
+        [HttpGet]
+        [Route("{id:int}/reviews")]
+        public async Task<IActionResult> GetMovieReviews(int id)
+        {
+            var reviews = await _movieService.GetMovieReviews(id);
+            return Ok(reviews);
+        }
+
     }
 }

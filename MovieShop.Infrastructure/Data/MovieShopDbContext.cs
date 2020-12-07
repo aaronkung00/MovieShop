@@ -19,6 +19,7 @@ namespace MovieShop.Infrastructure.Data
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<Crew> Crews { get; set; }
         public DbSet<MovieCrew> MovieCrews { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         /*******************************************************************/
 

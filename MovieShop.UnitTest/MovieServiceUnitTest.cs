@@ -19,7 +19,8 @@ namespace MovieShop.UnitTest
         private MovieService _sut;
         private static List<Movie> _movies;
         private Mock<IMovieRepository> _mockMovieRepository;
-
+        // addd due to change of constructor 12/06
+        private Mock<IAsyncRepository<MovieGenre>> _mockGenreRepository;
         [TestInitialize]
         // [OneTimeSetup] in Nunit
         public void OneTimeSetup()
@@ -27,7 +28,8 @@ namespace MovieShop.UnitTest
 
             _mockMovieRepository = new Mock<IMovieRepository>();
             // SUT System under Test MovieService => GetTopRevenueMovies
-            _sut = new MovieService(_mockMovieRepository.Object);
+            // addd due to change of constructor 12/06
+            _sut = new MovieService(_mockMovieRepository.Object, _mockGenreRepository.Object);
             _mockMovieRepository.Setup(m => m.GetHighestRevenueMovies()).ReturnsAsync(_movies);
 
           
