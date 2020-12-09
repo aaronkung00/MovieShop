@@ -21,6 +21,9 @@ namespace MovieShop.Infrastructure.Data
         public DbSet<MovieCrew> MovieCrews { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Role> Roles { get; set; }
         /*******************************************************************/
 
         public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options) : base(options)
@@ -39,9 +42,42 @@ namespace MovieShop.Infrastructure.Data
             modelBuilder.Entity<MovieCrew>(ConfigureMovieCrew);
             modelBuilder.Entity<User>(ConfigureUser);
             modelBuilder.Entity<Review>(ConfigureReview);
+            modelBuilder.Entity<Purchase>(ConfigurePurchase);
+
+            modelBuilder.Entity<Role>(ConfigureRole);
+            modelBuilder.Entity<UserRole>(ConfigureUserRole);
+            modelBuilder.Entity<Favorite>(ConfigureFavorite);
         }
 
         // 1119 Edit - Configure tables
+        private void ConfigureRole(EntityTypeBuilder<Role> builder)
+        {
+            builder.ToTable("Role");
+            builder.HasKey(r => r.Id);
+            builder.Property(r => r.Name).HasMaxLength(20);
+        }
+        private void ConfigureUserRole(EntityTypeBuilder<UserRole> builder)
+        {
+            builder.ToTable("UserRole");
+            builder.HasKey(k => new {  k.UserId, k.RoleId});
+            builder.HasOne(ur => ur.Role).WithMany(ur => ur.UserRoles).HasForeignKey(ur => ur.RoleId);
+            builder.HasOne(ur => ur.User).WithMany(ur => ur.UserRoles).HasForeignKey(ur => ur.UserId);
+        }
+        private void ConfigureFavorite(EntityTypeBuilder<Favorite> builder)
+        {
+            builder.ToTable("Favorite");
+            builder.HasKey(f => f.Id);
+            builder.HasIndex(f => new { f.MovieId, f.UserId }).IsUnique();
+        }
+
+        private void ConfigurePurchase(EntityTypeBuilder<Purchase> builder)
+        {
+            builder.ToTable("Purchase");
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Property(p => p.PurchaseNumber).ValueGeneratedOnAdd();
+            builder.HasIndex(p => new { p.UserId, p.MovieId }).IsUnique();
+        }
         private void ConfigureReview(EntityTypeBuilder<Review> builder)
         {
             builder.ToTable("Review");

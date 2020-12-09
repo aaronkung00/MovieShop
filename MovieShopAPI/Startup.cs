@@ -39,6 +39,11 @@ namespace MovieShopAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieShopAPI", Version = "v1" });
             });
 
+            // Add memory cache services
+            services.AddMemoryCache();
+            services.AddHttpContextAccessor();
+            services.AddSignalR();
+
             services.AddControllers().AddNewtonsoftJson(
                 options => options.SerializerSettings.ReferenceLoopHandling
                 = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -56,6 +61,8 @@ namespace MovieShopAPI
             services.AddScoped<ICastService, CastService>();
             services.AddScoped<ICastRepository, CastRepository>();
             services.AddScoped<IAsyncRepository<MovieGenre>, EfRepository<MovieGenre>>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<IAsyncRepository<Favorite>, EfRepository<Favorite>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

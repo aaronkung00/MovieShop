@@ -15,10 +15,10 @@ namespace MovieShop.Core.Entities
         [MaxLength(24)]
         public string Name { get; set; }
 
-     
+     /*
         [JsonIgnore]
         public virtual ICollection<Movie> Movies { get; set; }
-     
+     */
         [JsonIgnore]
         public ICollection<MovieGenre> MovieGenres { get; set; }
     

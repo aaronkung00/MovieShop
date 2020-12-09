@@ -26,8 +26,39 @@ namespace MovieShopAPI.Controllers
         {
             var createdMovie = await _movieService.CreateMovie(movieCreateRequest);
 
-            return Ok("Success!");
+            return Ok(createdMovie);
         }
 
+
+        [HttpPut("movie")]
+        public async Task<IActionResult> UpdateMovie(MovieCreateRequest movieCreateRequest)
+        {
+            var createdMovie = await _movieService.UpdateMovie(movieCreateRequest);
+
+            return Ok(createdMovie);
+        }
+
+        // not yet implement 
+
+        [HttpGet("purchases")]
+        public async Task<IActionResult> GetAllPurchases([FromQuery] int pageSize = 30, [FromQuery] int page = 1)
+        {
+            var movies = await _movieService.GetAllMoviePurchasesByPagination(pageSize, page);
+            return NotFound("Not yet implement");
+        }
+
+        [HttpGet("top")]
+        public IActionResult GetTopMovies()
+        {
+            //   var movies = _cache.Get<IEnumerable<MovieChartResponseModel>>("chartsData");
+            return NotFound("Not yet implement");
+        }
+
+        [HttpGet("push/{data}")]
+        public async Task<IActionResult> PushNotification(string data)
+        {
+         //   await _hubContext.Clients.All.SendAsync("discountNotification", data);
+            return NotFound("Not yet implement");
+        }
     }
 }

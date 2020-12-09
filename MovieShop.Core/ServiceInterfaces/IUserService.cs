@@ -36,5 +36,9 @@ namespace MovieShop.Core.ServiceInterfaces
         Task<UserRegisterResponseModel> CreateUser(UserRegisterRequestModel requestModel);
         Task<UserLoginResponseModel> ValidateUser(string email, string password);
         Task<UserRegisterResponseModel> GetUserDetails(int id);
+
+        Task<FavoriteResponseModel> GetAllFavoritesForUser(int id);
+        Task<ReviewResponseModel> GetAllReviewsByUser(int id);
+        Task<PurchaseResponseModel> GetAllPurchasesForUser(int id);
     }
 }

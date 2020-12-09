@@ -14,7 +14,7 @@ namespace MovieShop.Core.Models
         public string PosterUrl { get; set; }
         public string BackdropUrl { get; set; }
        
-     //   public decimal? Rating { get; set; }
+        public decimal? Rating { get; set; }
         public string Overview { get; set; }
         public string Tagline { get; set; }
         public decimal? Budget { get; set; }
@@ -24,6 +24,8 @@ namespace MovieShop.Core.Models
         public DateTime? ReleaseDate { get; set; }
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
+
+        public string OriginalLanguage { get; set; }
 
         //     public int FavoritesCount { get; set; }
         public List<CastResponseModel> Casts { get; set; }

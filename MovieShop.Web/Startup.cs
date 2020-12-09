@@ -52,7 +52,13 @@ namespace MovieShop.Web
 
             //
             services.AddScoped<IAsyncRepository<MovieGenre>, EfRepository<MovieGenre>>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<IAsyncRepository<Favorite>, EfRepository<Favorite>>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
+            //
+            services.AddMemoryCache();
+            services.AddHttpContextAccessor();
 
             //sets the default authentication scheme for the app
 

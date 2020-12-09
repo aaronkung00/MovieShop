@@ -12,21 +12,21 @@ namespace MovieShop.Infrastructure.Services
 {
     public class UserService : IUserService
     {
-    //  private readonly ICurrentUserService _currentUserService;
-    //  private readonly IAsyncRepository<UserRole> _userRoleRepository;
+        private readonly ICurrentUserService _currentUserService;
+        //  private readonly IAsyncRepository<UserRole> _userRoleRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICryptoService _encryptionService;
         //    private readonly IMovieService _movieService;
         //    private readonly IAsyncRepository<Purchase> _purchaseRepository;
-        //    private readonly IAsyncRepository<Favorite> _favoriteRepository;
+        private readonly IAsyncRepository<Favorite> _favoriteRepository;
         //    private readonly IAsyncRepository<Review> _reviewRepository;
         //   private readonly IMapper _mapper;
 
-        public UserService(ICryptoService encryptionService, IUserRepository userRepository)
+        public UserService(ICryptoService encryptionService, IUserRepository userRepository, IAsyncRepository<Favorite> favRepository)
         {
             _encryptionService = encryptionService;
             _userRepository = userRepository;
-
+            _favoriteRepository = favRepository;
         }
 
 
@@ -104,6 +104,32 @@ namespace MovieShop.Infrastructure.Services
                 LastName = user.LastName
             };
             return response;
+        }
+
+
+        public async Task<FavoriteResponseModel> GetAllFavoritesForUser(int id)
+        {
+            /*if (_currentUserService.UserId != id)
+                throw new HttpException(HttpStatusCode.Unauthorized, "You are not Authorized to View Favorites");
+            //todo
+            var favoriteMovies = await _favoriteRepository.ListAllWithIncludesAsync(
+                p => p.UserId == _currentUserService.UserId,
+                p => p.Movie);
+
+            */
+
+
+           return new FavoriteResponseModel { };
+        }
+
+        public async Task<ReviewResponseModel> GetAllReviewsByUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PurchaseResponseModel> GetAllPurchasesForUser(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

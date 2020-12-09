@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieShop.Core.Models
+namespace MovieShop.Core.Models.Request_Model
 {
-    public class ReviewMovieResponseModel
+    public class ReviewRequestModel
     {
         public int UserId { get; set; }
         public int MovieId { get; set; }
-        public string ReviewText { get; set; }
+        public string reviewText { get; set; }
         public decimal Rating { get; set; }
-        public string Name { get; set; }
     }
 }
