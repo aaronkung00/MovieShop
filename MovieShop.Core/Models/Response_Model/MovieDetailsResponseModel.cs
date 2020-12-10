@@ -13,7 +13,6 @@ namespace MovieShop.Core.Models
         public string Title { get; set; }
         public string PosterUrl { get; set; }
         public string BackdropUrl { get; set; }
-       
         public decimal? Rating { get; set; }
         public string Overview { get; set; }
         public string Tagline { get; set; }

@@ -65,7 +65,7 @@ namespace MovieShop.Infrastructure.Services
                 PosterUrl = movie.PosterUrl,
                 BackdropUrl = movie.BackdropUrl,
                 // Movie - not have rating now
-                // Rating = null,
+                Rating = movie.Rating,
                 Overview = movie.Overview,
                 Tagline = movie.Tagline,
                 Budget = movie.Budget,

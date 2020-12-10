@@ -9,8 +9,8 @@ namespace MovieShop.Core.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public decimal? Rating { get; set; }
         public string Overview { get; set; }
-
         public string Tagline { get; set; }
         public decimal? Budget { get; set; }
         public decimal? Revenue { get; set; }

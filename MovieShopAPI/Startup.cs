@@ -39,6 +39,8 @@ namespace MovieShopAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieShopAPI", Version = "v1" });
             });
 
+
+
             // Add memory cache services
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
@@ -74,6 +76,14 @@ namespace MovieShopAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieShopAPI v1"));
             }
+
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins(Configuration.GetValue<string>("clientSPAUrl")).AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+
 
             app.UseRouting();
 
