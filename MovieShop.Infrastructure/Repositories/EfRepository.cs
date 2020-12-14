@@ -84,7 +84,17 @@ namespace MovieShop.Infrastructure.Repositories
             return await _dbContext.Set<T>().Where(filter).ToListAsync();
         }
 
- 
+        public async Task<IEnumerable<T>> ListAllWithIncludesAsync(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes)
+        {
+            var query = _dbContext.Set<T>().AsQueryable();
+
+            if (includes != null)
+                foreach (Expression<Func<T, object>> navigationProperty in includes)
+                    query = query.Include(navigationProperty);
+
+
+            return await query.Where(@where).ToListAsync();
+        }
     }
 }
 

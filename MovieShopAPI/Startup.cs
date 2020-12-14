@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MovieShop.Core.Entities;
 using MovieShop.Core.RepositoryInterfaces;
@@ -16,6 +19,7 @@ using MovieShop.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieShopAPI
@@ -38,8 +42,27 @@ namespace MovieShopAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieShopAPI", Version = "v1" });
             });
+            //add auth
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+                    options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateIssuerSigningKey = true,    
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenSettings:PrivateKey"]))
+                        };
+                    });
 
+            services.AddAuthorization(options =>
+            {
+                var defaultAuthorizationPolicyBuilder =
+                    new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+                defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
 
             // Add memory cache services
             services.AddMemoryCache();
@@ -65,6 +88,8 @@ namespace MovieShopAPI
             services.AddScoped<IAsyncRepository<MovieGenre>, EfRepository<MovieGenre>>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IAsyncRepository<Favorite>, EfRepository<Favorite>>();
+            services.AddScoped<IAsyncRepository<Purchase>, EfRepository<Purchase>>();
+            services.AddScoped<IAsyncRepository<Review>, EfRepository<Review>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +112,7 @@ namespace MovieShopAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
