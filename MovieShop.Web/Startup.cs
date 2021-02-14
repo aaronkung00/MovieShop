@@ -55,6 +55,8 @@ namespace MovieShop.Web
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IAsyncRepository<Favorite>, EfRepository<Favorite>>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IAsyncRepository<Purchase>, EfRepository<Purchase>>();
+            services.AddScoped<IAsyncRepository<Review>, EfRepository<Review>>();
 
             //
             services.AddMemoryCache();
